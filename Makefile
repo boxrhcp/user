@@ -85,3 +85,11 @@ clean: cleandocker
 	rm -rf bin
 	rm -rf docker/user/bin
 	rm -rf vendor
+
+build: deps
+	mkdir -p bin
+	CGO_ENABLED=0 go build -a -installsuffix cgo -o bin/$(INSTANCE) main.go
+
+
+release:
+	docker build -t $(NAME) -f ./docker/user/Dockerfile-release 
